@@ -39,6 +39,18 @@ jobs:
         # You can add arguments here if needed, e.g.:
         # run: npx cypress run --browser chrome
 
+      - name: Display PASSED message
+        if: success() # Only run if previous steps succeeded
+        run: |
+          echo "                                                       "
+          echo " _____    ____    ____    ____    ______   _____        "
+          echo "|  _ \\  / __ \\  / __ \\  / __ \\  |  ____| | ____|       "
+          echo "| |_) || |  | || |  | || |  | || |__    | |__          "
+          echo "|  __/ | |  | || |  | || |  | ||  __|   |___ \\         "
+          echo "| |    | |__| || |__| || |__| || |____   ___) |        "
+          echo "|_|     \\____/  \\____/  \____/ |______| |____/         "
+          echo "                                                       "
+
       # Optional: Upload test artifacts (screenshots/videos) if tests fail
       # - name: Upload Cypress artifacts
       #   uses: actions/upload-artifact@v4
