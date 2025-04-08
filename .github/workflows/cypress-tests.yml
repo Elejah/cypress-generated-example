@@ -1,50 +1,50 @@
 name: Cypress Tests # Name of the workflow
 
-    on:
-      # Trigger on pushes to the main branch
-      push:
-        branches: [ main ] # Adjust if your main branch is named differently (e.g., master)
+on:
+  # Trigger on pushes to the main branch
+  push:
+    branches: [ main ] # Adjust if your main branch is named differently (e.g., master)
 
-      # Trigger daily at midnight UTC
-      schedule:
-        - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+  # Trigger daily at midnight UTC
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at 00:00 UTC
 
-      # Allows running this workflow manually from the Actions tab
-      workflow_dispatch:
+  # Allows running this workflow manually from the Actions tab
+  workflow_dispatch:
 
-    jobs:
-      cypress-run:
-        name: Run Cypress Tests # Name of the job
-        runs-on: ubuntu-latest # Use the latest Ubuntu runner
+jobs:
+  cypress-run:
+    name: Run Cypress Tests # Name of the job
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
-        steps:
-          - name: Checkout code
-            # Checks out your repository code onto the runner
-            uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        # Checks out your repository code onto the runner
+        uses: actions/checkout@v4
 
-          - name: Set up Node.js
-            # Installs Node.js environment needed for Cypress
-            uses: actions/setup-node@v4
-            with:
-              node-version: '18' # Specify your desired Node.js version
-              cache: 'npm' # Cache npm dependencies for faster builds
+      - name: Set up Node.js
+        # Installs Node.js environment needed for Cypress
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Specify your desired Node.js version
+          cache: 'npm' # Cache npm dependencies for faster builds
 
-          - name: Install dependencies
-            # Installs project dependencies including Cypress
-            run: npm ci # 'npm ci' is generally faster and safer for CI than 'npm install'
+      - name: Install dependencies
+        # Installs project dependencies including Cypress
+        run: npm ci # 'npm ci' is generally faster and safer for CI than 'npm install'
 
-          - name: Run Cypress tests headless
-            # Executes the tests using the 'cypress run' command
-            run: npx cypress run
-            # You can add arguments here if needed, e.g.:
-            # run: npx cypress run --browser chrome
+      - name: Run Cypress tests headless
+        # Executes the tests using the 'cypress run' command
+        run: npx cypress run
+        # You can add arguments here if needed, e.g.:
+        # run: npx cypress run --browser chrome
 
-          # Optional: Upload test artifacts (screenshots/videos) if tests fail
-          # - name: Upload Cypress artifacts
-          #   uses: actions/upload-artifact@v4
-          #   if: failure() # Only upload if the previous step (tests) failed
-          #   with:
-          #     name: cypress-artifacts
-          #     path: |
-          #       cypress/screenshots
-          #       cypress/videos
+      # Optional: Upload test artifacts (screenshots/videos) if tests fail
+      # - name: Upload Cypress artifacts
+      #   uses: actions/upload-artifact@v4
+      #   if: failure() # Only upload if the previous step (tests) failed
+      #   with:
+      #     name: cypress-artifacts
+      #     path: |
+      #       cypress/screenshots
+      #       cypress/videos
