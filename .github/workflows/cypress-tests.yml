@@ -78,7 +78,16 @@ jobs:
           sudo apt-get install k6
 
       - name: Login to K6 Cloud
-        run: k6 cloud login --token ${{ secrets.K6_CLOUD_TOKEN }}
+        env:
+          K6_CLOUD_TOKEN: 3824e1f901ebd8133901a905daf13d2bc4e5601a8e795214539944727fc7bab6
+        run: |
+          if [ -z "$K6_CLOUD_TOKEN" ]; then
+            echo "Error: K6_CLOUD_TOKEN is not set"
+            exit 1
+          fi
+          k6 cloud login --token "$K6_CLOUD_TOKEN"
 
       - name: Run K6 Test
+        env:
+          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
         run: k6 cloud k6/fake-store-api-test.js
