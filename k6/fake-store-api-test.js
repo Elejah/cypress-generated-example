@@ -7,9 +7,9 @@ export const options = {
     name: 'Fake Store API Performance Test'
   },
   stages: [
-    { duration: '30s', target: 20 }, // Ramp up to 20 users
-    { duration: '1m', target: 20 },  // Stay at 20 users for 1 minute
-    { duration: '30s', target: 0 },  // Ramp down to 0 users
+    { duration: '10s', target: 10 }, // Ramp up to 20 users
+    { duration: '20s', target: 30 },  // Stay at 20 users for 1 minute
+    { duration: '5s', target: 0 },  // Ramp down to 0 users
   ],
   thresholds: {
     http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
