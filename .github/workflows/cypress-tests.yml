@@ -58,3 +58,8 @@ jobs:
         env:
           K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
         run: k6 cloud k6/fake-store-api-test.js
+
+      - name: Run K6 Test
+        env:
+          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
+        run: k6 cloud k6/vention-test.js
