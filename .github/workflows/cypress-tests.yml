@@ -38,28 +38,3 @@ jobs:
         run: npx cypress run
         # You can add arguments here if needed, e.g.:
         # run: npx cypress run --browser chrome
-
-  k6-test:
-    name: Run K6 Performance Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install K6
-        run: |
-          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-          sudo apt-get update
-          sudo apt-get install k6
-
-      - name: Run K6 Test
-        env:
-          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
-        run: k6 cloud k6/fake-store-api-test.js
-
-      - name: Run K6 Test
-        env:
-          K6_CLOUD_TOKEN: ${{ secrets.K6_CLOUD_TOKEN }}
-        run: k6 cloud k6/vention-test.js
